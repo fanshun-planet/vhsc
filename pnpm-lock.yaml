@@ -20,6 +20,9 @@ devDependencies:
   '@tsconfig/node16':
     specifier: ^1.0.4
     version: 1.0.4
+  '@types/bmapgl':
+    specifier: ^0.0.7
+    version: 0.0.7
   rollup:
     specifier: ^3.25.1
     version: 3.25.1
@@ -185,6 +188,10 @@ packages:
 
   /@tsconfig/node16@1.0.4:
     resolution: {integrity: sha512-vxhUy4J8lyeyinH7Azl1pdd43GJhZH/tP2weN8TntQblOY+A0XbT8DJk1/oCPuOOyg/Ja757rG0CgHcWC8OfMA==}
+    dev: true
+
+  /@types/bmapgl@0.0.7:
+    resolution: {integrity: sha512-3R0wFbZtynfHBJq0v477amaNH3t2u2CzBo46ViIPDdOTEJJ+Ma/ql4X8tS2XjDZcZhDAr6QDWoqV8SZvp6STvA==}
     dev: true
 
   /@types/estree@1.0.1:
