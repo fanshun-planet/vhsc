@@ -1,4 +1,5 @@
 import type { IBaiduLiveMapConfig } from './sobek/live-map/baidu-live-map';
+import type { ITopoSketchMapConfig } from './sobek/offline-map/tile-map';
 import type { IMapMode } from './sobek';
 import { MapModeEnum } from './utils/enum';
 import { BaiduLiveMap, TileMap } from './sobek';
@@ -21,9 +22,9 @@ class SobekVHSC {
         return new BaiduLiveMap(config);
     }
 
-    public use_offline_map() {
+    public use_offline_map(config: ITopoSketchMapConfig) {
         this._map_mode = MapModeEnum.Offline;
-        return new TileMap();
+        return new TileMap(config);
     }
 }
 
