@@ -1,5 +1,5 @@
 import TransformClassBaidu from './transformer-for-baidu-map.min';
-import BmapUtil from './sdk.min';
+import BMapUtil from './sdk.min';
 
 
 const BaiduMapLevelRange = {
@@ -10,5 +10,5 @@ const TileLnglatTransformBaidu = new TransformClassBaidu(BaiduMapLevelRange.max,
 
 export {
     TileLnglatTransformBaidu as BaiduTileMapLnglatTransformer,
-    BmapUtil,
+    BMapUtil,
 };
