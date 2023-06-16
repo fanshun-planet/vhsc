@@ -40,12 +40,24 @@ class BaiduLiveMap {
         script.src = src;
         document.head.appendChild(script);
 
+        const MAX_TRY_CNT = 10;
+        let try_cnt = 0;
+        const check_bmap_available = (resolve: (value: Event | PromiseLike<Event>) => void, ev: Event) => {
+            if (BMapGL && BMapGL.Map) {
+                resolve(ev);
+            }
+            else {
+                if (try_cnt++ < MAX_TRY_CNT) {
+                    setTimeout(() => {
+                        check_bmap_available(resolve, ev);
+                    });
+                }
+            }
+        };
+
         return new Promise((resolve, reject) => {
             script.onload = (e) => {
-                // 将兑现时机调整到下一次UI Render后
-                setTimeout(() => {
-                    resolve(e);
-                });
+                check_bmap_available(resolve, e);
             };
             script.onerror = () => {
                 reject();
