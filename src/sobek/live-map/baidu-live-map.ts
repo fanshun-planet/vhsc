@@ -42,7 +42,10 @@ class BaiduLiveMap {
 
         return new Promise((resolve, reject) => {
             script.onload = (e) => {
-                resolve(e);
+                // 将兑现时机调整到下一次UI Render后
+                setTimeout(() => {
+                    resolve(e);
+                });
             };
             script.onerror = () => {
                 reject();
