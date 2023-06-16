@@ -36,28 +36,12 @@ class BaiduLiveMap {
         if (this.config?.sdk_script_id) {
             script.setAttribute('id', this.config.sdk_script_id);
         }
-        script.defer = true;
         script.src = src;
-        document.head.appendChild(script);
-
-        const MAX_TRY_CNT = 10;
-        let try_cnt = 0;
-        const check_bmap_available = (resolve: (value: Event | PromiseLike<Event>) => void, ev: Event) => {
-            if (BMapGL && BMapGL.Map) {
-                resolve(ev);
-            }
-            else {
-                if (try_cnt++ < MAX_TRY_CNT) {
-                    setTimeout(() => {
-                        check_bmap_available(resolve, ev);
-                    });
-                }
-            }
-        };
+        document.body.appendChild(script);
 
         return new Promise((resolve, reject) => {
             script.onload = (e) => {
-                check_bmap_available(resolve, e);
+                resolve(e);
             };
             script.onerror = () => {
                 reject();
