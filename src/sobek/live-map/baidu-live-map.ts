@@ -1,6 +1,8 @@
 export interface IBaiduLiveMapConfig {
     // baidu GL 地图脚本标签的id属性值（可选）
     sdk_script_id?: string;
+    // 百度地图开发者账号的KEY
+    access_key: string;
 }
 
 /**
@@ -9,14 +11,14 @@ export interface IBaiduLiveMapConfig {
  */
 class BaiduLiveMap {
     // 实例的配置参数
-    private config?: IBaiduLiveMapConfig;
+    private config: IBaiduLiveMapConfig;
 
     /**
      * 构造器
      * @constructor
      * @param config 
      */
-    public constructor(config: IBaiduLiveMapConfig = {}) {
+    public constructor(config: IBaiduLiveMapConfig) {
         this.config = config;
     }
  
@@ -24,7 +26,7 @@ class BaiduLiveMap {
      * 异步注入并加载百度地图sdk脚本
      * @param access_key 
      */
-    public inject_baidu_gl_map_defer_script(access_key: string): Promise<Event> {
+    private inject_baidu_gl_map_defer_script(access_key: string, script_id?: string): Promise<Event> {
         if (typeof access_key !== 'string' || access_key.length === 0) {
             throw new TypeError('ak密钥不正确！');
         }
@@ -32,9 +34,9 @@ class BaiduLiveMap {
             throw new ReferenceError('无法完成关键脚本的挂载操作！');
         }
         const script = document.createElement('script');
-        const src = `http://api.map.baidu.com/api?type=webgl&v=1.0&ak=${access_key}&callback=init`;
-        if (this.config?.sdk_script_id) {
-            script.setAttribute('id', this.config.sdk_script_id);
+        const src = `http://api.map.baidu.com/api?type=webgl&v=1.0&ak=${access_key}`;
+        if (script_id) {
+            script.setAttribute('id', script_id);
         }
         script.src = src;
         document.body.appendChild(script);
@@ -47,6 +49,16 @@ class BaiduLiveMap {
                 reject();
             };
         });
+    }
+
+    /**
+     * 启动函数
+     * @returns 
+     */
+    public init() {
+        const { access_key, sdk_script_id } = this.config;
+        const skd_injected_result = this.inject_baidu_gl_map_defer_script(access_key, sdk_script_id);
+        return skd_injected_result;
     }
 }
 
