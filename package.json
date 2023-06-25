@@ -1,6 +1,6 @@
 {
   "name": "vhsc",
-  "version": "0.2.5",
+  "version": "0.2.7",
   "description": "--",
   "type": "module",
   "main": "./lib/main.umd.min.js",
