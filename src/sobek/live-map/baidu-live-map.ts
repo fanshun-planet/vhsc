@@ -28,7 +28,7 @@ class BaiduLiveMap {
      */
     private inject_baidu_gl_map_defer_script(access_key: string, script_id?: string): Promise<Event> {
         if (typeof access_key !== 'string' || access_key.length === 0) {
-            throw new TypeError('ak密钥不正确！');
+            throw new TypeError('ak密钥参数不正确！');
         }
         if (!document.head || !document.head.appendChild) {
             throw new ReferenceError('无法完成关键脚本的挂载操作！');
