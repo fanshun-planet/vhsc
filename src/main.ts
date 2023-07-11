@@ -1,8 +1,8 @@
 import type { IBaiduLiveMapConfig } from './sobek/live-map/baidu-live-map';
 import type { ITopoSketchMapConfig } from './sobek/offline-map/tile-map';
-import type { IMapMode } from './sobek';
+import type { IMapMode } from './sobek/index';
 import { MapModeEnum } from './utils/enum';
-import { BaiduLiveMap, TileMap } from './sobek';
+import { BaiduLiveMap, TileMap } from './sobek/index';
 
 class SobekVHSC {
     // 地图模式（在线/离线）
