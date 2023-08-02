@@ -26,24 +26,28 @@ class BaiduLiveMap {
      * 异步注入并加载百度地图sdk脚本
      * @param access_key 
      */
-    private inject_baidu_gl_map_defer_script(access_key: string, script_id?: string): Promise<Event> {
+    private inject_baidu_gl_map_defer_script(): Promise<void> {
+        const { access_key, sdk_script_id } = this.config;
         if (typeof access_key !== 'string' || access_key.length === 0) {
-            throw new TypeError('ak密钥参数不正确！');
+            throw new TypeError('ak密钥参数格式有误！');
         }
         if (!document.head || !document.head.appendChild) {
             throw new ReferenceError('无法完成关键脚本的挂载操作！');
         }
         const script = document.createElement('script');
-        const src = `http://api.map.baidu.com/api?type=webgl&v=1.0&ak=${access_key}`;
-        if (script_id) {
-            script.setAttribute('id', script_id);
+        const bmap_api_init_cb_name = '_wait_for_sdk_to_be_ready_'
+        const src = `http://api.map.baidu.com/api?type=webgl&ak=${access_key}&callback=${bmap_api_init_cb_name}`;
+        if (sdk_script_id) {
+            script.setAttribute('id', sdk_script_id);
         }
         script.src = src;
         document.body.appendChild(script);
 
         return new Promise((resolve, reject) => {
-            script.onload = (e) => {
-                resolve(e);
+            // 将baidu api的sdk加载成功后的回调挂载到window对象上
+            // @ts-ignore
+            window[bmap_api_init_cb_name] = () => {
+                resolve();
             };
             script.onerror = () => {
                 reject();
@@ -56,8 +60,7 @@ class BaiduLiveMap {
      * @returns 
      */
     public init() {
-        const { access_key, sdk_script_id } = this.config;
-        const skd_injected_result = this.inject_baidu_gl_map_defer_script(access_key, sdk_script_id);
+        const skd_injected_result = this.inject_baidu_gl_map_defer_script();
         return skd_injected_result;
     }
 }
