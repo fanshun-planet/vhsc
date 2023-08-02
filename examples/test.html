@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html{height:100%}    
+        body{height:100%;margin:0px;padding:0px}    
+        #app{height:100%}  
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+    <script src="../lib/main.umd.min.js"></script>
+    <script>
+        const sv = new VHSC();
+        const online_map = sv.use_online_map({
+            access_key: 'HCT78No7hRhWqZBWt7d0tNLlTdzUbXQk',
+            sdk_script_id: 'xx-x',
+        });
+
+        online_map.init()
+            .then(res => {
+                console.log('after init log: ', BMapGL);
+            })
+            .catch(console.warn);
+    </script>
+</body>
+</html>
