@@ -31,7 +31,7 @@ export default {
         {
             file: 'lib/main.umd.min.js',
             format: 'umd',
-            name: 'SobekVHSC',
+            name: 'VHSC',
             entryFileNames: '[name].umd.min.js',
             globals: {
                 konva: 'Konva',
